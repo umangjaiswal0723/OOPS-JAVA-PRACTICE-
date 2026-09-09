@@ -1,0 +1,737 @@
+import java.util.Scanner;
+
+// Q1. WAP to insert 3 numbers from the keyboard and find a greater number among 3 numbers.
+
+class Assessment {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        int a = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int b = sc.nextInt();
+
+        System.out.print("Enter third number: ");
+        int c = sc.nextInt();
+
+        int greater;
+
+        if (a >= b && a >= c) {
+            greater = a;
+        } else if (b >= a && b >= c) {
+            greater = b;
+        } else {
+            greater = c;
+        }
+
+        System.out.println("Greater number = " + greater);
+    }
+}
+
+
+// Q2. WAP to count the total number of odd numbers between 1-100, and display the sum of them.
+
+class Assessment {
+    public static void main(String[] args) {
+
+        int count = 0;
+        int sum = 0;
+
+        for (int i = 1; i <= 100; i++) {
+
+            if (i % 2 != 0) {
+                count++;
+                sum = sum + i;
+            }
+        }
+
+        System.out.println("Total odd numbers = " + count);
+        System.out.println("Sum of odd numbers = " + sum);
+    }
+}
+
+
+// Q3. WAP to Find largest and smallest numbers in an array.
+
+class Assessment {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter size of array: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        System.out.println("Enter array elements:");
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int largest = arr[0];
+        int smallest = arr[0];
+
+        for (int i = 1; i < n; i++) {
+
+            if (arr[i] > largest) {
+                largest = arr[i];
+            }
+
+            if (arr[i] < smallest) {
+                smallest = arr[i];
+            }
+        }
+
+        System.out.println("Largest number = " + largest);
+        System.out.println("Smallest number = " + smallest);
+    }
+}
+
+
+// Q4. WAP to count the number of characters in a given string, to reverse the string and check whether it is palindrome or not?
+
+class Assessment {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String str = sc.nextLine();
+
+        System.out.println("Number of characters = " + str.length());
+
+        String reverse = "";
+
+        for (int i = str.length() - 1; i >= 0; i--) {
+            reverse = reverse + str.charAt(i);
+        }
+
+        System.out.println("Reversed string = " + reverse);
+
+        if (str.equalsIgnoreCase(reverse)) {
+            System.out.println("Palindrome = True");
+        } else {
+            System.out.println("Palindrome = False");
+        }
+    }
+}
+
+
+// Q5. WAP to find out the sum of command line arguments.
+
+class Assessment {
+    public static void main(String[] args) {
+
+        int sum = 0;
+
+        for (int i = 0; i < args.length; i++) {
+            sum = sum + Integer.parseInt(args[i]);
+        }
+
+        System.out.println("Sum of command line arguments = " + sum);
+    }
+}
+
+
+// Q6. WAP to create a class “SimpleObject” and display messages by using the constructor of this class.
+
+class SimpleObject {
+
+    SimpleObject() {
+        System.out.println("Constructor of SimpleObject is called.");
+        System.out.println("SimpleObject has been created successfully.");
+    }
+}
+
+class Assessment {
+    public static void main(String[] args) {
+
+        SimpleObject obj = new SimpleObject();
+    }
+}
+
+
+// Q7. WAP to create class Number with only one private instance variable as a double primitive type, include the following methods isZero(), isPositive(), isNegative( ), isOdd( ), isEven( ), isPrime(), isAmstrong() in this class and all above methods should return boolean primitive type like for isPositive() should return “Positive = True”. 
+
+class Number {
+
+    private double num;
+
+    Number(double num) {
+        this.num = num;
+    }
+
+    boolean isZero() {
+        return num == 0;
+    }
+
+    boolean isPositive() {
+        return num > 0;
+    }
+
+    boolean isNegative() {
+        return num < 0;
+    }
+
+    boolean isOdd() {
+
+        if (num != (int) num) {
+            return false;
+        }
+
+        return ((int) num) % 2 != 0;
+    }
+
+    boolean isEven() {
+
+        if (num != (int) num) {
+            return false;
+        }
+
+        return ((int) num) % 2 == 0;
+    }
+
+    boolean isPrime() {
+
+        if (num != (int) num || num < 2) {
+            return false;
+        }
+
+        int n = (int) num;
+
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+
+            if (n % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    boolean isAmstrong() {
+
+        if (num != (int) num || num < 0) {
+            return false;
+        }
+
+        int n = (int) num;
+        int temp = n;
+
+        int digits;
+
+        if (n == 0) {
+            digits = 1;
+        } else {
+            digits = String.valueOf(n).length();
+        }
+
+        int sum = 0;
+
+        while (temp > 0) {
+
+            int digit = temp % 10;
+
+            sum = sum + (int) Math.pow(digit, digits);
+
+            temp = temp / 10;
+        }
+
+        return sum == n;
+    }
+}
+
+class Assessment {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        double value = sc.nextDouble();
+
+        Number n = new Number(value);
+
+        System.out.println("Zero = " + n.isZero());
+        System.out.println("Positive = " + n.isPositive());
+        System.out.println("Negative = " + n.isNegative());
+        System.out.println("Odd = " + n.isOdd());
+        System.out.println("Even = " + n.isEven());
+        System.out.println("Prime = " + n.isPrime());
+        System.out.println("Amstrong = " + n.isAmstrong());
+    }
+}
+
+
+// Q8. WAP to create a Room class, the attributes of this class are roomno, roomtype, roomarea and ACmachine. In this class the member functions are setData and displayData. Use member function to set data and display that data using displayData() method. 
+
+class Room {
+
+    int roomno;
+    String roomtype;
+    double roomarea;
+    boolean ACmachine;
+
+    void setData(int roomno, String roomtype,
+                 double roomarea, boolean ACmachine) {
+
+        this.roomno = roomno;
+        this.roomtype = roomtype;
+        this.roomarea = roomarea;
+        this.ACmachine = ACmachine;
+    }
+
+    void displayData() {
+
+        System.out.println("Room Number = " + roomno);
+        System.out.println("Room Type = " + roomtype);
+        System.out.println("Room Area = " + roomarea);
+        System.out.println("AC Machine = " + ACmachine);
+    }
+}
+
+class Assessment {
+    public static void main(String[] args) {
+
+        Room r = new Room();
+
+        r.setData(101, "Deluxe", 250.5, true);
+
+        r.displayData();
+    }
+}
+
+
+// Q9. WAP to create a class named Shape and create three subclasses Circle, Triangle and Square, each class has two-member functions named draw () and erase (). Implement this concept using polymorphism. 
+
+class Shape {
+
+    void draw() {
+        System.out.println("Drawing Shape");
+    }
+
+    void erase() {
+        System.out.println("Erasing Shape");
+    }
+}
+
+class Circle extends Shape {
+
+    @Override
+    void draw() {
+        System.out.println("Drawing Circle");
+    }
+
+    @Override
+    void erase() {
+        System.out.println("Erasing Circle");
+    }
+}
+
+class Triangle extends Shape {
+
+    @Override
+    void draw() {
+        System.out.println("Drawing Triangle");
+    }
+
+    @Override
+    void erase() {
+        System.out.println("Erasing Triangle");
+    }
+}
+
+class Square extends Shape {
+
+    @Override
+    void draw() {
+        System.out.println("Drawing Square");
+    }
+
+    @Override
+    void erase() {
+        System.out.println("Erasing Square");
+    }
+}
+
+class Assessment {
+    public static void main(String[] args) {
+
+        Shape s;
+
+        s = new Circle();
+        s.draw();
+        s.erase();
+
+        s = new Triangle();
+        s.draw();
+        s.erase();
+
+        s = new Square();
+        s.draw();
+        s.erase();
+    }
+}
+
+
+// Q10. WAP to create a class Employee with a method called calculateSalary(). Create two subclasses Manager and Programmer. In each subclass, override the calculateSalary() method to calculate and return the salary based on their specific roles.
+
+class Employee {
+
+    private int empNo;
+    private String empName;
+    private int empBasic;
+
+    Employee() {
+    }
+
+    Employee(int empNo, String empName, int empBasic) {
+        this.empNo = empNo;
+        this.empName = empName;
+        this.empBasic = empBasic;
+    }
+
+    int getEmpNo() {
+        return empNo;
+    }
+
+    String getEmpName() {
+        return empName;
+    }
+
+    int getEmpBasic() {
+        return empBasic;
+    }
+
+    double calculateSalary() {
+        return empBasic;
+    }
+}
+
+class Manager extends Employee {
+
+    Manager(int empNo, String empName, int empBasic) {
+        super(empNo, empName, empBasic);
+    }
+
+    @Override
+    double calculateSalary() {
+
+        double HRA = getEmpBasic() * 0.20;
+        double DA = getEmpBasic() * 0.10;
+
+        return getEmpBasic() + HRA + DA;
+    }
+}
+
+class Programmer extends Employee {
+
+    Programmer(int empNo, String empName, int empBasic) {
+        super(empNo, empName, empBasic);
+    }
+
+    @Override
+    double calculateSalary() {
+
+        double HRA = getEmpBasic() * 0.15;
+        double DA = getEmpBasic() * 0.05;
+
+        return getEmpBasic() + HRA + DA;
+    }
+}
+
+class Assessment {
+    public static void main(String[] args) {
+
+        Employee e;
+
+        e = new Manager(101, "Rahul", 50000);
+        System.out.println("Manager Salary = " + e.calculateSalary());
+
+        e = new Programmer(102, "Aman", 40000);
+        System.out.println("Programmer Salary = " + e.calculateSalary());
+    }
+}
+
+
+// Q11. WAP to implement the concept of method overloading and method overriding. And Abstract Class.
+
+abstract class Animal {
+
+    abstract void sound();
+
+    void eat() {
+        System.out.println("Animal eats food.");
+    }
+}
+
+class Dog extends Animal {
+
+    // Method Overriding
+    @Override
+    void sound() {
+        System.out.println("Dog barks.");
+    }
+
+    // Method Overloading
+    void display() {
+        System.out.println("Display without argument");
+    }
+
+    void display(String name) {
+        System.out.println("Name = " + name);
+    }
+
+    void display(String name, int age) {
+        System.out.println("Name = " + name + ", Age = " + age);
+    }
+}
+
+class Assessment {
+    public static void main(String[] args) {
+
+        Dog d = new Dog();
+
+        // Abstract class / Method Overriding
+        d.sound();
+
+        // Normal inherited method
+        d.eat();
+
+        // Method Overloading
+        d.display();
+        d.display("Tommy");
+        d.display("Tommy", 5);
+    }
+}
+
+
+// Q12. WAP to Create a class Employee having members as follows:
+// private int empNo
+// private String empName
+// private int empBasic
+// Parameterized constructor to initialize members.
+// Getter methods for all instance variables
+// Create a class WriteEmployee having a main method. Ask users to enter details of an employee and set them in an Employee object. Store details of this object in a file emp.txt. Read employee details from the file and display those details. 		
+
+class WriteEmployee {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Employee Number: ");
+        int empNo = sc.nextInt();
+
+        sc.nextLine();
+
+        System.out.print("Enter Employee Name: ");
+        String empName = sc.nextLine();
+
+        System.out.print("Enter Employee Basic Salary: ");
+        int empBasic = sc.nextInt();
+
+        Employee emp = new Employee(empNo, empName, empBasic);
+
+        try {
+
+            // Writing employee details to file
+            FileWriter fw = new FileWriter("emp.txt");
+
+            fw.write("Employee Number: " + emp.getEmpNo() + "\n");
+            fw.write("Employee Name: " + emp.getEmpName() + "\n");
+            fw.write("Employee Basic Salary: " + emp.getEmpBasic() + "\n");
+
+            fw.close();
+
+            System.out.println("\nEmployee details stored successfully.");
+
+            // Reading employee details from file
+            FileReader fr = new FileReader("emp.txt");
+            BufferedReader br = new BufferedReader(fr);
+
+            String line;
+
+            System.out.println("\nEmployee Details from File:");
+
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            br.close();
+
+        } catch (IOException e) {
+
+            System.out.println("File Error: " + e.getMessage());
+        }
+    }
+}
+
+
+// Q13. WAP to create a text file in the path c:/Java/abc.txt and check whether that file exists or not. Using the commands exists (), isDirectory(), isFile(), getName() and getAbsolutePath().
+
+class Assessment {
+
+    public static void main(String[] args) {
+
+        File file = new File("C:/Java/abc.txt");
+
+        try {
+
+            // Create directory if it does not exist
+            File directory = new File("C:/Java");
+
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Create file if it does not exist
+            if (!file.exists()) {
+                file.createNewFile();
+                System.out.println("File created successfully.");
+            }
+
+        } catch (IOException e) {
+
+            System.out.println("Error creating file: " + e.getMessage());
+        }
+
+        System.out.println("Exists = " + file.exists());
+        System.out.println("Is Directory = " + file.isDirectory());
+        System.out.println("Is File = " + file.isFile());
+        System.out.println("File Name = " + file.getName());
+        System.out.println("Absolute Path = " + file.getAbsolutePath());
+    }
+}
+
+
+// Q14. WAP to Implement three classes: Storage, Counter and Printer
+// The Storage class should store an integer.
+// The Counter class should create a thread and start counting from 0 (0,1,2, 3 ...) and store each value in the Storage class.
+// The Printer class should create a thread that keeps reading the value in the Storage class and printing it.
+// Write a program that creates an instance of the Storage class and set up a Counter and Printer object to operate on it.
+
+class Storage {
+
+    private int value;
+
+    synchronized void setValue(int value) {
+        this.value = value;
+    }
+
+    synchronized int getValue() {
+        return value;
+    }
+}
+
+class Counter extends Thread {
+
+    Storage storage;
+
+    Counter(Storage storage) {
+        this.storage = storage;
+    }
+
+    @Override
+    public void run() {
+
+        for (int i = 0; i <= 10; i++) {
+
+            storage.setValue(i);
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+class Printer extends Thread {
+
+    Storage storage;
+
+    Printer(Storage storage) {
+        this.storage = storage;
+    }
+
+    @Override
+    public void run() {
+
+        int previous = -1;
+
+        while (previous < 10) {
+
+            int value = storage.getValue();
+
+            if (value != previous) {
+
+                System.out.println("Storage Value = " + value);
+
+                previous = value;
+            }
+
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+class Assessment {
+
+    public static void main(String[] args) {
+
+        Storage storage = new Storage();
+
+        Counter counter = new Counter(storage);
+        Printer printer = new Printer(storage);
+
+        counter.start();
+        printer.start();
+    }
+}
+
+
+// Q15. WAP to Create a class MyThread derived from Thread class and override the run method. Create a class ThreadDemo having a main method. Create 2 objects of MyThread class and observe the behavior of threads.
+
+
+class MyThread extends Thread {
+
+    @Override
+    public void run() {
+
+        for (int i = 1; i <= 5; i++) {
+
+            System.out.println(
+                Thread.currentThread().getName() + " : " + i
+            );
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+class ThreadDemo {
+
+    public static void main(String[] args) {
+
+        MyThread t1 = new MyThread();
+        MyThread t2 = new MyThread();
+
+        t1.setName("Thread 1");
+        t2.setName("Thread 2");
+
+        t1.start();
+        t2.start();
+    }
+}
