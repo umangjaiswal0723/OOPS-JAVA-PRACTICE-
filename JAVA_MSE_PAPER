@@ -1,0 +1,460 @@
+Question 1. Space Mission System
+
+A space mission system calculates the required fuel for a spacecraft. The required fuel is calculated as Required Fuel = Distance / Fuel Efficiency.
+
+(a) Create a class Spacecraft with distance and fuelEfficiency as data members.
+(b) Create a method calculateFuel() that calculates the required fuel. If fuelEfficiency is 0, handle the exception using try-catch and display the message "Invalid fuel efficiency!".
+
+Answer:
+
+class Spacecraft {
+double distance;
+double fuelEfficiency;
+
+void calculateFuel() {
+    try {
+        if (fuelEfficiency == 0) {
+            throw new ArithmeticException();
+        }
+
+        double fuel = distance / fuelEfficiency;
+        System.out.println("Required Fuel: " + fuel);
+    }
+    catch (ArithmeticException e) {
+        System.out.println("Invalid fuel efficiency!");
+    }
+}
+
+}
+
+public class Main {
+public static void main(String[] args) {
+
+    Spacecraft s = new Spacecraft();
+
+    s.distance = 10;
+    s.fuelEfficiency = 0;
+
+    s.calculateFuel();
+}
+
+}
+
+Output:
+
+Invalid fuel efficiency!
+
+Question 2. Museum Artifact Management
+
+A museum maintains a list of rare artifacts currently displayed in an exhibition. New artifacts can be added, and an artifact may be removed when it is sent for restoration. The museum uses a LinkedList to manage this dynamic list.
+
+(a) Create a LinkedList to store artifact names.
+(b) Add three artifact names to the list.
+(c) Add one new artifact at the beginning of the list.
+(d) Remove one artifact from the list and display the updated list.
+(e) Display the first and last artifact in the list.
+
+Answer:
+
+import java.util.LinkedList;
+
+class ArtifactTracker {
+public static void main(String[] args) {
+
+    LinkedList<String> artifacts = new LinkedList<>();
+
+    artifacts.add("Painting");
+    artifacts.add("Statue");
+    artifacts.add("Ancient Coin");
+
+    artifacts.addFirst("Old Manuscript");
+
+    artifacts.remove("Statue");
+
+    System.out.println("Updated List: " + artifacts);
+
+    System.out.println("First Artifact: " + artifacts.getFirst());
+    System.out.println("Last Artifact: " + artifacts.getLast());
+}
+
+}
+
+Output:
+
+Updated List: [Old Manuscript, Painting, Ancient Coin]
+First Artifact: Old Manuscript
+Last Artifact: Ancient Coin
+
+Question 3. Smart Parking System
+
+Smart Parking System manages a limited number of parking slots. Two vehicles try to book a parking slot at the same time. Since both vehicles access the same availableSlots variable, synchronization is required to avoid incorrect slot booking.
+
+(a) Create a class ParkingArea that extends Thread. Declare a variable vehicleNo and a shared variable availableSlots. Create a static synchronized method parkVehicle(String vehicleNo) that books a slot if available and decreases availableSlots.
+
+(b) Override the run() method to call parkVehicle().
+
+Answer:
+
+class ParkingArea extends Thread {
+
+String vehicleNo;
+
+static int availableSlots = 1;
+
+static synchronized void parkVehicle(String vehicleNo) {
+
+    if (availableSlots > 0) {
+        System.out.println(vehicleNo + " booked a parking slot.");
+        availableSlots--;
+    }
+    else {
+        System.out.println(vehicleNo + " could not book a parking slot.");
+    }
+}
+
+public void run() {
+    parkVehicle(vehicleNo);
+}
+
+}
+
+public class Main {
+public static void main(String[] args) {
+
+    ParkingArea v1 = new ParkingArea();
+    v1.vehicleNo = "UP11K2026";
+    v1.start();
+
+    ParkingArea v2 = new ParkingArea();
+    v2.vehicleNo = "UK08K2020";
+    v2.start();
+}
+
+}
+
+Possible Output:
+
+UP11K2026 booked a parking slot.
+UK08K2020 could not book a parking slot.
+
+The order of the output can change because both threads execute concurrently.
+
+Question 4. Smart EV Charging Station
+
+A smart EV charging station wants to develop a system to keep track of electric vehicles using its charging facility. Each vehicle has a registration number, vehicle model and battery percentage. The station wants to prevent direct access to vehicle information, maintain the total number of vehicles registered, and ensure that every vehicle has a unique registration number.
+
+(a) Create a class EVVehicle and declare registrationNo, model and batteryPercentage as private data members. Provide appropriate getter and setter methods.
+
+(b) Create a parameterized constructor to initialize all vehicle details when an object is created.
+
+(c) Declare a static variable vehicleCount that keeps track of the total number of EVVehicle objects created.
+
+(d) Declare a final variable stationName and initialize it with "GreenCharge EV Station".
+
+Answer:
+
+class EVVehicle {
+
+private int registrationNo;
+private String model;
+private int batteryPercentage;
+
+static int vehicleCount = 0;
+
+static final String stationName = "GreenCharge EV Station";
+
+EVVehicle(int registrationNo, String model, int batteryPercentage) {
+    this.registrationNo = registrationNo;
+    this.model = model;
+    this.batteryPercentage = batteryPercentage;
+
+    vehicleCount++;
+}
+
+int getRegistrationNo() {
+    return registrationNo;
+}
+
+void setRegistrationNo(int registrationNo) {
+    this.registrationNo = registrationNo;
+}
+
+String getModel() {
+    return model;
+}
+
+void setModel(String model) {
+    this.model = model;
+}
+
+int getBatteryPercentage() {
+    return batteryPercentage;
+}
+
+void setBatteryPercentage(int batteryPercentage) {
+    this.batteryPercentage = batteryPercentage;
+}
+
+}
+
+public class Main {
+public static void main(String[] args) {
+
+    EVVehicle v1 = new EVVehicle(1, "Nexon", 78);
+    EVVehicle v2 = new EVVehicle(2, "Brezza", 50);
+
+    System.out.println("Station: " + EVVehicle.stationName);
+
+    System.out.println(
+        v1.getRegistrationNo() + " " +
+        v1.getModel() + " " +
+        v1.getBatteryPercentage()
+    );
+
+    System.out.println("Total Vehicles: " + EVVehicle.vehicleCount);
+}
+
+}
+
+Output:
+
+Station: GreenCharge EV Station
+1 Nexon 78
+Total Vehicles: 2
+
+Question 5. Smart Home System
+
+A Smart Home System uses a smart device that can perform both security monitoring and energy monitoring.
+
+(a) Create an interface SecuritySystem with a method monitorSecurity().
+
+(b) Create another interface EnergySystem with a method checkEnergyUsage().
+
+(c) Create a class SmartHome that implements both SecuritySystem and EnergySystem. Override both methods with the messages "Security is monitored" and "Energy check done".
+
+Answer:
+
+interface SecuritySystem {
+
+void monitorSecurity();
+
+}
+
+interface EnergySystem {
+
+void checkEnergyUsage();
+
+}
+
+class SmartHome implements SecuritySystem, EnergySystem {
+
+public void monitorSecurity() {
+    System.out.println("Security is monitored");
+}
+
+public void checkEnergyUsage() {
+    System.out.println("Energy check done");
+}
+
+}
+
+public class Main {
+public static void main(String[] args) {
+
+    SmartHome sh = new SmartHome();
+
+    sh.monitorSecurity();
+    sh.checkEnergyUsage();
+}
+
+}
+
+Output:
+
+Security is monitored
+Energy check done
+
+Question 6. Online Shopping System
+
+An Online Shopping System maintains a list of products available for purchase. Each product has a product ID, product name, and price. The system uses an ArrayList to store and manage product details.
+
+(a) Create a class ProductDetails with data members productId, productName, and price and make a constructor to initialize all variables.
+
+(b) In the main() method, create an ArrayList of ProductDetails objects and add details of all three given products using the add() method.
+
+(c) Display all the products stored in the ArrayList using for-each loop.
+
+(d) Use the remove() method to remove one product from the ArrayList and display the updated list.
+
+Answer:
+
+import java.util.ArrayList;
+
+class ProductDetails {
+
+int productId;
+String productName;
+int price;
+
+ProductDetails(int productId, String productName, int price) {
+    this.productId = productId;
+    this.productName = productName;
+    this.price = price;
+}
+
+}
+
+public class Main {
+public static void main(String[] args) {
+
+    ProductDetails p1 = new ProductDetails(1, "Soap", 100);
+    ProductDetails p2 = new ProductDetails(2, "Gel", 300);
+    ProductDetails p3 = new ProductDetails(3, "Shampoo", 400);
+
+    ArrayList<ProductDetails> products = new ArrayList<>();
+
+    products.add(p1);
+    products.add(p2);
+    products.add(p3);
+
+    System.out.println("All Products:");
+
+    for (ProductDetails p : products) {
+        System.out.println(
+            p.productId + " " +
+            p.productName + " " +
+            p.price
+        );
+    }
+
+    products.remove(p2);
+
+    System.out.println("Updated List:");
+
+    for (ProductDetails p : products) {
+        System.out.println(
+            p.productId + " " +
+            p.productName + " " +
+            p.price
+        );
+    }
+}
+
+}
+
+Output:
+
+All Products:
+1 Soap 100
+2 Gel 300
+3 Shampoo 400
+
+Updated List:
+1 Soap 100
+3 Shampoo 400
+
+Question 7. College Event Registration System
+
+A College Event Registration System maintains the names of students registered for a technical event. A student should be registered only once.
+
+(a) Select a suitable Java Collection to store the names of registered students such that duplicate names are not allowed.
+
+(b) Add at least four students to the collection.
+
+(c) Display the total number of registered students using the size() method.
+
+(d) Remove one student from the collection.
+
+(e) Write a suitable loop to display all the registered student names.
+
+Answer:
+
+The suitable collection for this problem is HashSet because HashSet does not allow duplicate elements.
+
+import java.util.HashSet;
+
+public class Main {
+public static void main(String[] args) {
+
+    HashSet<String> students = new HashSet<>();
+
+    students.add("Rahul");
+    students.add("Aman");
+    students.add("Priya");
+    students.add("Neha");
+
+    students.add("Rahul");
+
+    System.out.println("Total Students: " + students.size());
+
+    students.remove("Aman");
+
+    System.out.println("Registered Students:");
+
+    for (String student : students) {
+        System.out.println(student);
+    }
+}
+
+}
+
+Output:
+
+Total Students: 4
+
+Registered Students:
+Rahul
+Priya
+Neha
+
+HashSet is used because it automatically prevents duplicate student names. The duplicate name "Rahul" is not added again. The size() method returns the total number of unique students. The remove() method removes a student from the collection and the for-each loop is used to display all registered students.
+
+Question 8. Food Order Management System
+
+A Food Order Management System maintains a list of food items selected by customers. New food items can be added at the beginning of the order list, while the last food item can be removed when required.
+
+(a) Create a LinkedList to store the names of food items.
+
+(b) Add the following food items at the beginning of the list: "Pizza", "Burger", "Pasta", and "Sandwich".
+
+(c) Display the first item of the list.
+
+(d) Remove one food item from the end of the list.
+
+(e) Write a suitable loop to display all the food items currently present in the list.
+
+Answer:
+
+import java.util.LinkedList;
+
+public class FoodOrder {
+public static void main(String[] args) {
+
+    LinkedList<String> food = new LinkedList<>();
+
+    food.addFirst("Pizza");
+    food.addFirst("Burger");
+    food.addFirst("Pasta");
+    food.addFirst("Sandwich");
+
+    System.out.println("First Item: " + food.getFirst());
+
+    food.removeLast();
+
+    System.out.println("Food Items:");
+
+    for (String item : food) {
+        System.out.println(item);
+    }
+}
+
+}
+
+Output:
+
+First Item: Sandwich
+
+Food Items:
+Sandwich
+Pasta
+Burger
